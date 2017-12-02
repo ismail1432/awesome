@@ -18,12 +18,18 @@ class AwesomeController extends Controller
 {
 
     /**
-     * @Route("/{awesome}", name="awesome")
+     * @Route("/", name="home")
      */
-    public function index($awesome) {
+    public function index() {
 
-        return $this->render('index.html.twig', [
-            'awesome' => $awesome,
-        ]);
+        return $this->render('index.html.twig');
+    }
+
+    /**
+     * @Route("/booking", name="booking")
+     */
+    public function booking() {
+
+        return $this->render('booking.html.twig');
     }
 }

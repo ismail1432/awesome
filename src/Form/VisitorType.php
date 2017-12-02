@@ -12,7 +12,8 @@ class VisitorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('field_name')
+            ->add('firstname')
+            ->add('birthday')
         ;
     }
 

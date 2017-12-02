@@ -7,11 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Booking
 {
     /**
      * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -32,7 +34,7 @@ class Booking
     private $totalVisitor;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Visitor", mappedBy="booking")
+     * @ORM\OneToMany(targetEntity="App\Entity\Visitor", mappedBy="booking", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $visitors;
@@ -75,12 +77,10 @@ class Booking
         return $this->price;
     }
 
-    /**
-     * @param mixed $price
-     */
+
     public function setPrice($price)
     {
-        $this->price = $price;
+        $this->price = 12;
     }
 
     /**
@@ -106,11 +106,12 @@ class Booking
     }
 
     /**
-     * @param mixed $totalVisitor
+     * @ORM\PrePersist
      */
-    public function setTotalVisitor($totalVisitor)
+    public function setTotalVisitor()
     {
-        $this->totalVisitor = $totalVisitor;
+
+        $this->totalVisitor = count($this->visitors);
     }
 
     /**
@@ -129,5 +130,16 @@ class Booking
         $this->visitors = $visitors;
     }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function calculPrice()
+    {
+        foreach ($this->visitors as $visitor)
+        {
+            $age = $visitor->getAge();
+
+        }
+    }
 
 }

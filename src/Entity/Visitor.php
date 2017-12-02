@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VisitorRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Visitor
 {
@@ -88,11 +89,16 @@ class Visitor
     }
 
     /**
-     * @param mixed $age
+     * @ORM\PrePersist
      */
-    public function setAge($age)
+    public function setAge()
     {
-        $this->age = $age;
+        $now = \DateTime("now");
+        $year = $now->format("Y");
+
+        $birthYear = $this->getBirthday()->format("Y");
+
+        $this->age = $year - $birthYear;
     }
 
     /**
@@ -110,6 +116,7 @@ class Visitor
     {
         $this->booking = $booking;
     }
+
 
 
 

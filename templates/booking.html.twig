@@ -1,5 +1,22 @@
 {% extends 'index.html.twig' %}
-
+ {% block stylesheets %}
+     {{ parent() }}
+     {% endblock %}
 {% block body %}
-<h1>Booking time...</h1>
+<h1 class="center-align">Booking time...</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" value="Book">
+    {{ form_end(form) }}
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+
+    </script>
+
+    <script src="{{ asset('js/addVisitor.js') }}" type="text/javascript"></script>
 {% endblock %}

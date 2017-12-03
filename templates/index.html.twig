@@ -11,6 +11,9 @@
 </head>
 <body>
 {% block body %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <p>{{ flashMessage }}</p>
+    {% endfor %}
     <h1>Welcome !</h1>
 
     <h3><a href="{{ path('booking') }}">booking...</a></h3>

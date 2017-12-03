@@ -135,11 +135,23 @@ class Booking
      */
     public function calculPrice()
     {
+        $price = 20;
+        $totalPrice = 0;
         foreach ($this->visitors as $visitor)
         {
             $age = $visitor->getAge();
 
+            switch ($age) {
+                case $age >= 10 :
+                    $price = 5;
+                    break;
+                case $age > 50:
+                    $price = 10;
+                    break;
+            }
+            $totalPrice += $price;
         }
+        $this->setPrice($totalPrice);
     }
 
 }

@@ -23,17 +23,8 @@ class BookingType extends AbstractType
                 'allow_add' => true,
                 'by_reference' => false,
             ])
-            ->addEventListener(
-                FormEvents::POST_SUBMIT,
-                array($this, 'onPostSubmit')
-            )
+
         ;
-    }
-
-    public function onPostSubmit(FormEvent $event)
-    {
-        $booking = $event->getData();
-
     }
 
 

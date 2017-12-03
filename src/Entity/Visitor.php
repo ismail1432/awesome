@@ -93,11 +93,9 @@ class Visitor
      */
     public function setAge()
     {
-        $now = \DateTime("now");
+        $now = new \DateTime("now");
         $year = $now->format("Y");
-
         $birthYear = $this->getBirthday()->format("Y");
-
         $this->age = $year - $birthYear;
     }
 

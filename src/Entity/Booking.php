@@ -80,7 +80,7 @@ class Booking
 
     public function setPrice($price)
     {
-        $this->price = 12;
+        $this->price = $price;
     }
 
     /**

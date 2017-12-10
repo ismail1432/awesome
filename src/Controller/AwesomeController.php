@@ -11,11 +11,14 @@ namespace  App\Controller;
 
 use App\Form\BookingType;
 use App\Manager\BookingManager;
+use App\Services\CsvCreator;
+use PHPUnit\Util\Json;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class AwesomeController extends Controller
 {
@@ -24,7 +27,6 @@ class AwesomeController extends Controller
      * @Route("/", name="home")
      */
     public function index() {
-
         return $this->render('index.html.twig');
     }
 
@@ -41,7 +43,7 @@ class AwesomeController extends Controller
             $booking = $form->getData();
             $bookingManager->save($booking);
 
-           // $this->addFlash('notice', 'Booking successfully');
+            $this->addFlash('notice', 'Booking successfully');
             return $this->redirectToRoute('home');
         }
         return $this->render('booking.html.twig',
@@ -51,11 +53,17 @@ class AwesomeController extends Controller
     }
 
     /**
-     * @Route("/review", name="review")
+     * @Route("/export", name="review")
      */
-    public function review(Request $request) {
+    public function review(Request $request,CsvCreator $csvCreator) {
 
+        $csv = $csvCreator->createCsv();
 
-        return $this->render('review.html.twig');
+        rename($csv, 'good.csv');
+        return new JsonResponse('good');
+
     }
+
+
+
 }

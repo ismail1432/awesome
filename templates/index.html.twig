@@ -11,13 +11,41 @@
 </head>
 <body>
 {% block body %}
-    {% for flashMessage in app.session.flashbag.get('notice') %}
+
+    {% for flashMessage in app.flashes('notice') %}
         <p>{{ flashMessage }}</p>
     {% endfor %}
+
     <h1>Welcome !</h1>
+    <button id="export" type="button">Export CSV</button>
 
     <h3><a href="{{ path('booking') }}">booking...</a></h3>
 {% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.js"
+            integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+            crossorigin="anonymous"></script>
+
+    <script>
+alert('ok');
+        $('#export').click(function (e) {
+            console.log('clic');
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8000/export",
+                data: "bla",
+                success: function (reponse) {
+                    console.log(reponse)
+                }
+
+            });
+
+        })
+    </script>
+{% endblock %}
 </body>
 </html>
